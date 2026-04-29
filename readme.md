@@ -42,9 +42,9 @@ This assumes sluggish reactions from macroeconomic aggregates to contemporary po
 
 #### FEVD EA and USA
 ![image](images/EA_FEVD_Heatmap.png)
-![image](images/EA_FEVD_Dynamics_stackedpng.png)
+![image](images/EA_FEVD_Dynamics_stacked.png)
 ![image](images/USA_FEVD_Heatmap.png)
-![image](images/USA_FEVD_Dynamics_stacked.png)
+![image](images/USA_FEVD_Dynamics_Stacked.png)
 
 Note: Preliminary estimates based on a 7-variable VAR model. Variables ordered as: OIL, GDPreal, UR, HICP, FISC, EGM, IRT3M).
 
