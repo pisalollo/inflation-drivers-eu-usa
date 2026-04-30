@@ -54,9 +54,9 @@ The preliminary Forecast Error Variance Decomposition (FEVD) highlights notable 
 
 **Critical Assessment and Methodological Caveats:** While the variance decomposition yields economically intuitive results, a rigorous econometric caveat must be stated regarding the fiscal proxy (FISC). The marginal contribution of FISC to inflation variance is subject to a dual interpretation. Economically, it may accurately capture the non-inflationary, "shielding" nature of recent fiscal interventions, which were absorbed by energy bills rather than translating into aggregate demand. However, from a strictly methodological standpoint, the hypothesis that the proxy itself might be sub-optimal or too noisy to isolate the true inflationary fiscal impulse cannot be ruled out. Confounding factors such as the unprecedented accumulation of "excess savings" by households during lockdowns may have severed the immediate transmission channel between fiscal transfers (disposable income) and consumption. In sharp contrast, the monetary proxy (EGM) demonstrates remarkably robust explanatory power for the US.
 
-## UPdate 30/04: Interperation about the fiscal imapct on USA vs EA
+## UPdate 30/04: Ec. Interpretation: fiscal imapct on USA vs EA
 
-![image](Fiscal_Proxy_comparison.png)
+![image](images/Fiscal_Proxy_comparison.png)
 
 |Anomalies (Z-SCORE)| value |
 |-----------|---|
@@ -77,4 +77,4 @@ The preliminary Forecast Error Variance Decomposition (FEVD) highlights notable 
 2. **Time-Varying Parameter VAR (TVP-VAR):** Given the structural breaks (e.g., Euro Area Great Moderation vs Post-COVID inflation), constant parameters might underestimate policy transmission. TVP-VAR integration is planned.
 3. **BEAR ECB Tool Integration:** For robust Bayesian estimation, conditional forecasting, and formal sign restrictions.
 4. **Machine Learning Forecasting:** Exploring non-linear algorithms for out-of-sample inflation forecasting.
-5. **Bonus:** better comments on code, remove italian comments harmonizing in english
+5. **Codebase Standardization:** Refactor and translate all legacy inline comments from Italian to English.
