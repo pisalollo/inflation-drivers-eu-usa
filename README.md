@@ -81,8 +81,8 @@ To trace the origin of the structural divergence captured by the VAR model, the 
 Although US IRFs show a clear positive HICP response to fiscal shocks (unlike the EA), the FEVD assigns only ~2% of inflation variance directly to FISC. 
 
 This could be a contradiction, my interpetation is that the fiscal shock acted merely as a trigger. 
-The resulting debt monetization—captured by excess broad money 
-(EGM, explaining ~22% of variance)—acted as the primary transmission mechanism to the real economy.
+The resulting debt monetization-captured by excess broad money 
+(EGM, explaining ~22% of variance)-acted as the primary transmission mechanism to the real economy.
 
 3. **The Euro Area "Transmission Failure" (Excess Savings)**
 Both regions saw massive expansions in EGM. However, the FEVD reveals a weak impact in Europe (~3.9% impact on HICP vs. ~22% in the US). 
