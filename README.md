@@ -65,21 +65,41 @@ The preliminary Forecast Error Variance Decomposition (FEVD) highlights notable 
 |USA Peak Z-Score (Rolling)| 26.47 std dev|
 |EA Peak Z-Score  (Rolling)| 13.44 std dev|
 
-1. **Reconciling IRFs and FEVD**
-Context & Methodological Caution: While the Impulse Response Functions (IRFs) clearly indicate a positive directional response of the US HICP to a fiscal shock (in stark contrast to the neutral or slightly negative response observed in the Euro Area), the Forecast Error Variance Decomposition (FEVD) attributes only ~2% of the total US inflation variance directly to the FISC proxy.
-Rather than a model contradiction, a plausible economic interpretation of this dynamic is the presence of a strong fiscal-monetary nexus in the United States. The data suggests that the US fiscal shock acted primarily as the initial trigger, but the subsequent monetary policies-captured by the excess broad money proxy (EGM, which explains ~22% of the variance)-served as the actual transmission belt to the real economy.
+![image](images/Monetary_Proxy_comparison.png)
 
-2. **The Euro Area**
-This nexus interpretation raises a critical corollary observation: the anomalous expansion of excess broad money (EGM) was massive in both jurisdictions, yet the FEVD highlights a stark transmission failure in Europe (~3.9% impact on HICP) compared to the US (~22%). A plausible narrative for this divergence is that the European monetary overhang remained largely trapped in bank deposits as precautionary "excess savings". Conversely, the US consumer exhibited a much higher marginal propensity to consume, rapidly converting the liquidity injection into active aggregate demand.
+|Anomalies (Z-SCORE)| value |
+|-----------|---|
+|USA Peak Z-Score (Static)| 7.88 std dev|
+|EA Peak Z-Score  (Static)|6.57 std dev|
+|USA Peak Z-Score (Rolling)| 16.47 std dev|
+|EA Peak Z-Score  (Rolling)| 9.29 std dev|
 
-3. **Avenue for Future Research (Caveat)**
-It is crucial to state that, within the current model specifications, this behavioral divergence regarding the velocity of money remains a speculative hypothesis. Formally testing this channel requires expanding the VAR framework to explicitly include proxies for household savings rates or velocity. Future iterations of this work will prioritize empirically testing the assumption of asymmetric consumer behavior across the two regions.
+1. **Data Investigation & Z-Score Analysis**
+To trace the origin of the structural divergence captured by the VAR model, the proxies were inspected against their historical volatility. Visual evidence highlights a severe magnitude mismatch during the Q2-2020 shock. To formalize this, peak anomaly scores (Z-scores) were computed relative to both a static full-sample variance and a 5-year rolling variance, effectively controlling for heteroskedasticity.
+
+2. **Reconciling IRFs and FEVD (The US Fiscal-Monetary trigger)**
+Although US IRFs show a clear positive HICP response to fiscal shocks (unlike the EA), the FEVD assigns only ~2% of inflation variance directly to FISC. 
+
+This could be a contradiction, my interpetation is that the fiscal shock acted merely as a trigger. 
+The resulting debt monetization—captured by excess broad money 
+(EGM, explaining ~22% of variance)—acted as the primary transmission mechanism to the real economy.
+
+3. **The Euro Area "Transmission Failure" (Excess Savings)**
+Both regions saw massive expansions in EGM. However, the FEVD reveals a weak impact in Europe (~3.9% impact on HICP vs. ~22% in the US). 
+A likely driver for this divergence is that the European monetary overhang remained trapped as precautionary
+ "excess savings", dropping money velocity. In contrast, US consumers showed a higher marginal 
+propensity to consume, directly translating liquidity into aggregate demand.
+
+[Gross saving of households, ratio of adjusted gross disposable income, Euro area 20, Quarterly](https://data.ecb.europa.eu/data/datasets/QSA/QSA.Q.N.I9.W0.S1M.S1._Z.B.B8G._Z._Z._Z.XDC_R_B6GA_CY._T.S.V.C4._T)
+
+![image](images/ECB_Data_Portal_20260430165612.png)
 
 
-**Data Investigation:** To understand why the VAR model captures this behavior, I moved backward to visually and statistically inspect the raw inputs of the fiscal proxy (Disposable Income / GDP ratio) against its historical volatility. The visual plot (inserted above) immediately suggested a severe magnitude mismatch during the Q2-2020 shock.
+4. **Post-Peak Monetary Contraction**
+The post-peak trajectory of EGM further reinforces this divergence. While base effects and policy tightening caused negative money growth globally, the contraction was asymmetric. The US proxy retreated to a moderate contraction (~ -5 std dev), whereas the Euro Area experienced a much sharper liquidity drain (~ -10 std dev). This aggressive European contraction likely closed the time window for the monetary overhang to fuel sustained demand-pull inflation.
 
-**Quantification (Z-Score Analysis):** To validate the visual intuition, I extracted the peak values and calculated their anomaly scores (Z-scores), comparing them against both the static full-sample variance and a 5-year backward-looking rolling variance to account for heteroskedasticity.
-
+5. **Model Limitations & Future Research**
+Under the current VAR specification, money velocity and savings behavior are unobserved variables, making the above narrative a hypothesis derived ex-post. Formally testing this channel requires expanding the model to explicitly include proxies for household savings rates. Future iterations will focus on empirically verifying this asymmetric consumer behavior across the two jurisdictions.
 
 
 ## Next Steps & Robustness
