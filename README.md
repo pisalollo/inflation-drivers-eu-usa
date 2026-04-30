@@ -54,7 +54,7 @@ The preliminary Forecast Error Variance Decomposition (FEVD) highlights notable 
 
 **Critical Assessment and Methodological Caveats:** While the variance decomposition yields economically intuitive results, a rigorous econometric caveat must be stated regarding the fiscal proxy (FISC). The marginal contribution of FISC to inflation variance is subject to a dual interpretation. Economically, it may accurately capture the non-inflationary, "shielding" nature of recent fiscal interventions, which were absorbed by energy bills rather than translating into aggregate demand. However, from a strictly methodological standpoint, the hypothesis that the proxy itself might be sub-optimal or too noisy to isolate the true inflationary fiscal impulse cannot be ruled out. Confounding factors such as the unprecedented accumulation of "excess savings" by households during lockdowns may have severed the immediate transmission channel between fiscal transfers (disposable income) and consumption. In sharp contrast, the monetary proxy (EGM) demonstrates remarkably robust explanatory power for the US.
 
-## UPdate 30/04: Ec. Interpretation: fiscal imapct on USA vs EA
+## UPdate 30/04: Possibile Economic Interpretation: fiscal and monetary impact USA vs EA (sign of irf's and fevd)
 
 ![image](images/Fiscal_Proxy_comparison.png)
 
@@ -65,11 +65,21 @@ The preliminary Forecast Error Variance Decomposition (FEVD) highlights notable 
 |USA Peak Z-Score (Rolling)| 26.47 std dev|
 |EA Peak Z-Score  (Rolling)| 13.44 std dev|
 
-**Context:** After generating the baseline Impulse Response Functions (IRFs) and the Variance Decompositions (FEVD), a striking divergence emerged: the US fiscal proxy (FISC) appears to transmit a fast and significant inflationary impulse to the HICP, whereas the Euro Area equivalent remains largely neutral.
+1. **Reconciling IRFs and FEVD**
+Context & Methodological Caution: While the Impulse Response Functions (IRFs) clearly indicate a positive directional response of the US HICP to a fiscal shock (in stark contrast to the neutral or slightly negative response observed in the Euro Area), the Forecast Error Variance Decomposition (FEVD) attributes only ~2% of the total US inflation variance directly to the FISC proxy.
+Rather than a model contradiction, a plausible economic interpretation of this dynamic is the presence of a strong fiscal-monetary nexus in the United States. The data suggests that the US fiscal shock acted primarily as the initial trigger, but the subsequent monetary policies-captured by the excess broad money proxy (EGM, which explains ~22% of the variance)-served as the actual transmission belt to the real economy.
+
+2. **The Euro Area**
+This nexus interpretation raises a critical corollary observation: the anomalous expansion of excess broad money (EGM) was massive in both jurisdictions, yet the FEVD highlights a stark transmission failure in Europe (~3.9% impact on HICP) compared to the US (~22%). A plausible narrative for this divergence is that the European monetary overhang remained largely trapped in bank deposits as precautionary "excess savings". Conversely, the US consumer exhibited a much higher marginal propensity to consume, rapidly converting the liquidity injection into active aggregate demand.
+
+3. **Avenue for Future Research (Caveat)**
+It is crucial to state that, within the current model specifications, this behavioral divergence regarding the velocity of money remains a speculative hypothesis. Formally testing this channel requires expanding the VAR framework to explicitly include proxies for household savings rates or velocity. Future iterations of this work will prioritize empirically testing the assumption of asymmetric consumer behavior across the two regions.
+
 
 **Data Investigation:** To understand why the VAR model captures this behavior, I moved backward to visually and statistically inspect the raw inputs of the fiscal proxy (Disposable Income / GDP ratio) against its historical volatility. The visual plot (inserted above) immediately suggested a severe magnitude mismatch during the Q2-2020 shock.
 
 **Quantification (Z-Score Analysis):** To validate the visual intuition, I extracted the peak values and calculated their anomaly scores (Z-scores), comparing them against both the static full-sample variance and a 5-year backward-looking rolling variance to account for heteroskedasticity.
+
 
 
 ## Next Steps & Robustness
