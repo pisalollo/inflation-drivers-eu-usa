@@ -54,7 +54,7 @@ The preliminary Forecast Error Variance Decomposition (FEVD) highlights notable 
 
 **Critical Assessment and Methodological Caveats:** While the variance decomposition yields economically intuitive results, a rigorous econometric caveat must be stated regarding the fiscal proxy (FISC). The marginal contribution of FISC to inflation variance is subject to a dual interpretation. Economically, it may accurately capture the non-inflationary, "shielding" nature of recent fiscal interventions, which were absorbed by energy bills rather than translating into aggregate demand. However, from a strictly methodological standpoint, the hypothesis that the proxy itself might be sub-optimal or too noisy to isolate the true inflationary fiscal impulse cannot be ruled out. Confounding factors such as the unprecedented accumulation of "excess savings" by households during lockdowns may have severed the immediate transmission channel between fiscal transfers (disposable income) and consumption. In sharp contrast, the monetary proxy (EGM) demonstrates remarkably robust explanatory power for the US.
 
-## UPdate 30/04: Possibile Economic Interpretation: fiscal and monetary impact USA vs EA (sign of irf's and fevd)
+## UPdate 30/04: Possibile Economic Interpretation: fiscal and monetary impact USA vs EA: EX-POST
 
 ![image](images/Fiscal_Proxy_comparison.png)
 
@@ -93,7 +93,10 @@ propensity to consume, directly translating liquidity into aggregate demand.
 [Gross saving of households, ratio of adjusted gross disposable income, Euro area 20, Quarterly](https://data.ecb.europa.eu/data/datasets/QSA/QSA.Q.N.I9.W0.S1M.S1._Z.B.B8G._Z._Z._Z.XDC_R_B6GA_CY._T.S.V.C4._T)
 
 ![image](images/ECB_Data_Portal_20260430165612.png)
-
+#### Personal Consumption Expenditures (PCE)
+![image](images/consumption_usa.png)
+#### Private final consumption, Euro area 20, Quarterly
+![image](images/ECB_Data_Portal_20260430171754.png)
 
 4. **Post-Peak Monetary Contraction**
 The post-peak trajectory of EGM further reinforces this divergence. While base effects and policy tightening caused negative money growth globally, the contraction was asymmetric. The US proxy retreated to a moderate contraction (~ -5 std dev), whereas the Euro Area experienced a much sharper liquidity drain (~ -10 std dev). This aggressive European contraction likely closed the time window for the monetary overhang to fuel sustained demand-pull inflation.
@@ -101,6 +104,10 @@ The post-peak trajectory of EGM further reinforces this divergence. While base e
 5. **Model Limitations & Future Research**
 Under the current VAR specification, money velocity and savings behavior are unobserved variables, making the above narrative a hypothesis derived ex-post. Formally testing this channel requires expanding the model to explicitly include proxies for household savings rates. Future iterations will focus on empirically verifying this asymmetric consumer behavior across the two jurisdictions.
 
+**Links**
+* https://ec.europa.eu/eurostat/web/products-euro-indicators/w/2-28042026-ap
+* https://data.ecb.europa.eu/data/datasets/MNA/MNA.Q.Y.I9.W0.S1M.S1.D.P31._Z._Z._T.EUR.LR.G1
+* https://fred.stlouisfed.org/series/PCE
 
 ## Next Steps & Robustness
 1. **Sign Restrictions:** Compare mixed/contrast policies.
