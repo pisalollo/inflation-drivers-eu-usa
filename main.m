@@ -100,9 +100,6 @@ L = legend({"EA: Pre-2020", "EA: 2002-2025", "USA: Pre-2020", "USA: 2002-2025", 
 disp('--- ESECUZIONE FEVD (Variance Decomposition) ---');
 hor_fevd = 1:H; % Vogliamo analizzare tutti i trimestri (da 1 a H)
 
-% Per non far impazzire MATLAB con 100 grafici, testiamo le due finestre 
-% più importanti per la tua tesi: L'Eurozona recente e gli USA recenti.
-
 % FEVD per Euro Area (2002-2025)
 disp('Calcolo FEVD: Euro Area (2002-2025)');
 [vd_eu, vdk_eu] = fevd(irf_eu_full, hor_fevd, irf_eu_full, labels, labels, 1, "EU");
@@ -113,3 +110,127 @@ disp('Calcolo FEVD: USA (2002-2025)');
 
 % (Nota: Passiamo "labels" anche per "shocklabels" perché con Cholesky 
 % lo shock ha lo stesso nome della variabile originaria).
+
+%% Update 30/04 - Confronto Varianza Statica vs Rolling
+
+% --- 1. CARICAMENTO DATI ---
+EA = readmatrix("dataset_eu.xlsx", "Range", "B90:K184");
+disp_gdp_ea = EA(:,6) ./ EA(:,4); % Usa _ea coerentemente
+
+USA = readmatrix("dataset_usa.xlsx", "Range", "B223:H317");
+disp_gdp_usa = USA(:,5);
+
+% --- 2. CALCOLI STATICI (Intero Campione) ---
+mean_ea = mean(disp_gdp_ea);
+var_ea = var(disp_gdp_ea);
+std_ea = sqrt(var_ea);
+
+mean_usa = mean(disp_gdp_usa);
+var_usa = var(disp_gdp_usa);
+std_usa = sqrt(var_usa);
+
+% --- 3. CALCOLI ROLLING (Finestra 5 anni = 20 trimestri backward-looking) ---
+k = 19; % 19 periodi passati + il periodo corrente = 20 trimestri
+
+roll_mean_usa = movmean(disp_gdp_usa, [k 0]);
+roll_std_usa  = sqrt(movvar(disp_gdp_usa, [k 0]));
+
+roll_mean_ea = movmean(disp_gdp_ea, [k 0]);
+roll_std_ea  = sqrt(movvar(disp_gdp_ea, [k 0]));
+
+
+% --- 4. IMPOSTAZIONI GRAFICHE ---
+t = 1:95; 
+x_patch = [t(1), t(end), t(end), t(1)]; % Per i rettangoli statici
+x_fill = [t, fliplr(t)]; % Asse X "avanti e indietro" per i poligoni dinamici
+
+% Creazione Figura (Più alta per ospitare 4 pannelli)
+figure('Name', 'Fiscal Proxy: Static vs Rolling Variance', 'Position', [50, 50, 1300, 800]);
+
+%% RIGA 1: VARIANZA STATICA
+
+% ---> PANNELLO 1: USA STATICA
+subplot(2, 2, 1);
+hold on;
+y_patch_2std_usa = [mean_usa - 2*std_usa, mean_usa - 2*std_usa, mean_usa + 2*std_usa, mean_usa + 2*std_usa];
+patch(x_patch, y_patch_2std_usa, [0.85 0.85 0.85], 'EdgeColor', 'none', 'FaceAlpha', 0.6, 'DisplayName', '\pm 2 Std Dev');
+
+y_patch_1std_usa = [mean_usa - std_usa, mean_usa - std_usa, mean_usa + std_usa, mean_usa + std_usa];
+patch(x_patch, y_patch_1std_usa, [0.7 0.7 0.7], 'EdgeColor', 'none', 'FaceAlpha', 0.6, 'DisplayName', '\pm 1 Std Dev');
+
+yline(mean_usa, 'k--', 'LineWidth', 1.5, 'DisplayName', 'Historical Mean'); 
+plot(t, disp_gdp_usa, 'b-', 'LineWidth', 2, 'DisplayName', 'GDI/GDP USA');
+title('USA: Static Variance (Full Sample)', 'FontSize', 12, 'FontWeight', 'bold');
+grid on; axis tight; legend('Location', 'best');
+
+% ---> PANNELLO 2: EURO AREA STATICA
+subplot(2, 2, 2);
+hold on;
+y_patch_2std_ea = [mean_ea - 2*std_ea, mean_ea - 2*std_ea, mean_ea + 2*std_ea, mean_ea + 2*std_ea];
+patch(x_patch, y_patch_2std_ea, [0.85 0.85 0.85], 'EdgeColor', 'none', 'FaceAlpha', 0.6, 'DisplayName', '\pm 2 Std Dev');
+
+y_patch_1std_ea = [mean_ea - std_ea, mean_ea - std_ea, mean_ea + std_ea, mean_ea + std_ea];
+patch(x_patch, y_patch_1std_ea, [0.7 0.7 0.7], 'EdgeColor', 'none', 'FaceAlpha', 0.6, 'DisplayName', '\pm 1 Std Dev');
+
+yline(mean_ea, 'k--', 'LineWidth', 1.5, 'DisplayName', 'Historical Mean'); 
+plot(t, disp_gdp_ea, 'b-', 'LineWidth', 2, 'DisplayName', 'GDI/GDP EA'); % <-- Corretto qui
+title('Euro Area: Static Variance (Full Sample)', 'FontSize', 12, 'FontWeight', 'bold');
+grid on; axis tight; legend('Location', 'best');
+
+
+%% RIGA 2: VARIANZA MOBILE (ROLLING)
+
+% ---> PANNELLO 3: USA ROLLING
+subplot(2, 2, 3);
+hold on;
+% Banda a 2 Deviazioni Standard (Dinamica)
+y_fill_2std_usa = [(roll_mean_usa + 2*roll_std_usa)', fliplr((roll_mean_usa - 2*roll_std_usa)')];
+fill(x_fill, y_fill_2std_usa, [0.85 0.85 0.85], 'EdgeColor', 'none', 'FaceAlpha', 0.6, 'DisplayName', '\pm 2 Std Dev (Rolling)');
+
+% Banda a 1 Deviazione Standard (Dinamica)
+y_fill_1std_usa = [(roll_mean_usa + roll_std_usa)', fliplr((roll_mean_usa - roll_std_usa)')];
+fill(x_fill, y_fill_1std_usa, [0.7 0.7 0.7], 'EdgeColor', 'none', 'FaceAlpha', 0.6, 'DisplayName', '\pm 1 Std Dev (Rolling)');
+
+% Media Mobile e Dati
+plot(t, roll_mean_usa, 'k--', 'LineWidth', 1.5, 'DisplayName', 'Rolling Mean (5Y)');
+plot(t, disp_gdp_usa, 'b-', 'LineWidth', 2, 'DisplayName', 'GDI/GDP USA');
+title('USA: Rolling Variance (5 Years)', 'FontSize', 12, 'FontWeight', 'bold');
+grid on; axis tight; legend('Location', 'best');
+
+% ---> PANNELLO 4: EURO AREA ROLLING
+subplot(2, 2, 4);
+hold on;
+% Banda a 2 Deviazioni Standard (Dinamica)
+y_fill_2std_ea = [(roll_mean_ea + 2*roll_std_ea)', fliplr((roll_mean_ea - 2*roll_std_ea)')];
+fill(x_fill, y_fill_2std_ea, [0.85 0.85 0.85], 'EdgeColor', 'none', 'FaceAlpha', 0.6, 'DisplayName', '\pm 2 Std Dev (Rolling)');
+
+% Banda a 1 Deviazione Standard (Dinamica)
+y_fill_1std_ea = [(roll_mean_ea + roll_std_ea)', fliplr((roll_mean_ea - roll_std_ea)')];
+fill(x_fill, y_fill_1std_ea, [0.7 0.7 0.7], 'EdgeColor', 'none', 'FaceAlpha', 0.6, 'DisplayName', '\pm 1 Std Dev (Rolling)');
+
+% Media Mobile e Dati
+plot(t, roll_mean_ea, 'k--', 'LineWidth', 1.5, 'DisplayName', 'Rolling Mean (5Y)');
+plot(t, disp_gdp_ea, 'b-', 'LineWidth', 2, 'DisplayName', 'GDI/GDP EA');
+title('Euro Area: Rolling Variance (5 Years)', 'FontSize', 12, 'FontWeight', 'bold');
+grid on; axis tight; legend('Location', 'best');
+
+%% Anomalies (Z-SCORE) COVID
+[peak_usa, idx_usa] = max(disp_gdp_usa);
+[peak_ea, idx_ea]   = max(disp_gdp_ea);
+
+% 2. Z-SCORE STATICO (Rispetto a tutta la storia)
+z_static_usa = (peak_usa - mean_usa) / std_usa;
+z_static_ea  = (peak_ea - mean_ea) / std_ea;
+
+% 3. Z-SCORE ROLLING (5 year window)
+% comparing peak respect to precedent regime
+z_roll_usa = (peak_usa - roll_mean_usa(idx_usa-1)) / roll_std_usa(idx_usa-1);
+z_roll_ea  = (peak_ea - roll_mean_ea(idx_ea-1)) / roll_std_ea(idx_ea-1);
+
+%% Results
+fprintf('\n--- Anomalies (Z-SCORE) ---\n');
+fprintf('USA Peak Z-Score (Static): %.2f std dev\n', z_static_usa);
+fprintf('EA Peak Z-Score  (Static): %.2f std dev\n\n', z_static_ea);
+
+fprintf('USA Peak Z-Score (Rolling): %.2f std dev\n', z_roll_usa);
+fprintf('EA Peak Z-Score  (Rolling): %.2f std dev\n', z_roll_ea);
